@@ -1,4 +1,5 @@
 maze
 ====
 
-Proyecto 1 lenguajes de programacion
+Proyecto 1
+Lenguajes de programacion.
