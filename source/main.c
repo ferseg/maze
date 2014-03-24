@@ -1,13 +1,9 @@
 #include "general.h"
 #include "matrizGUI.h"
 
-
-// includes jimmy
 #include "generadorMatriz.h"
 #include "creadorLaberinto.h"
 
-//#include "node.h"
-//#include "stack.h"
 
 // ---------------------------
 
@@ -41,17 +37,12 @@ int main(gint argc, gchar *argv[]) {
 		int quesos = atoi(argv[3]);
 		int venenos = atoi(argv[4]);
 		generarMatrizPrincipal(matriz, filas, columnas);
-
-		//notify(5,5);
-
-		// --------------------------------
-
-        nodoMatriz_t a[filas][columnas];
-
-        generarMatriz(filas, columnas ,a);
-
-        crearLaberinto(filas, columnas, 0, 0, a);
-        // ---------------------------------
+	
+	        nodoMatriz_t a[filas][columnas];
+	
+	        generarMatriz(filas, columnas ,a);
+	
+	        crearLaberinto(filas, columnas, 0, 0, a);
 
 
 	}
