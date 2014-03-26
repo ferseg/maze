@@ -3,15 +3,21 @@
 
 #include "generadorMatriz.h"
 #include "creadorLaberinto.h"
-
-
-// ---------------------------
+#include "eventos.h"
 
 
 GtkWidget *window;
 GtkWidget *matriz;
+nodoMatriz_t **a;
 
 int main(gint argc, gchar *argv[]) {
+
+    // Layout de la ventana
+    GtkWidget *layout;
+    // Boton de generar la matriz
+    GtkWidget *btnGenerar;
+    // Boton empezar a correr los threads
+    GtkWidget *btnEmpezar;
 
 	// Inicia la interfaz con GTK
 	gtk_init(&argc, &argv);
@@ -21,6 +27,10 @@ int main(gint argc, gchar *argv[]) {
 	g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_window_set_title(GTK_WINDOW(window), "Generador de laberintos");
+	gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+
+	// Inicia el layout
+	layout = gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
 
 	// Matriz donde se van a posicionar los botones.
 	// Configuracion de la matriz
@@ -37,19 +47,30 @@ int main(gint argc, gchar *argv[]) {
 		int quesos = atoi(argv[3]);
 		int venenos = atoi(argv[4]);
 		generarMatrizPrincipal(matriz, filas, columnas);
-	
-	        nodoMatriz_t a[filas][columnas];
-	
-	        generarMatriz(filas, columnas ,a);
-	
-	        crearLaberinto(filas, columnas, 0, 0, a);
+		// Inicializa la matriz logica
+		a = malloc(sizeof(nodoMatriz_t)*filas*columnas);
+        generarMatriz(filas, columnas ,a);
+
+        // Genera un struc de param para generar el laberinto
+        param_generar_t *paramsGenerar;
+		paramsGenerar = malloc(sizeof(param_generar_t));
+		paramsGenerar->columnas = columnas;
+		paramsGenerar->filas = filas;
+		paramsGenerar->matriz = a;//malloc(sizeof(nodoMatriz_t)*filas*columnas);
+
+
+		btnGenerar = gtk_button_new_with_label("Generar Laberinto");
+        g_signal_connect(G_OBJECT(btnGenerar), "clicked", G_CALLBACK(generar_laberinto), (gpointer) paramsGenerar);
+
+        // Agrega los elementos al layout
+        gtk_box_pack_start(GTK_BOX(layout), matriz, FALSE, FALSE, 0);
+        gtk_box_pack_start(GTK_BOX(layout), btnGenerar, FALSE, FALSE, 0);
 
 
 	}
 
-
-
-	gtk_container_add(GTK_CONTAINER(window), matriz);
+	gtk_container_add(GTK_CONTAINER(window), layout);
+    gtk_widget_show_all(layout);
 	gtk_widget_show_all(window);
 
 	gtk_main();

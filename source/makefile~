@@ -1,4 +1,4 @@
-CLASES = main.c matrizGUI.c creadorLaberinto.c generadorMatriz.c eventos.c
+CLASES = main.c matrizGUI.c creadorLaberinto.c generadorMatriz.c
 CFLAGS = -I ../includes #-Wall
 CC = gcc
 PROG_NAME = gtkex
