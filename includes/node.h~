@@ -1,5 +1,6 @@
 #ifndef nodo_H
 #define nodo_H
+#include "nodoMatriz.h"
 
 typedef struct nodo
 {

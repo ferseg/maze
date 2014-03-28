@@ -1,19 +1,17 @@
+#ifndef pila_H_INCLUDED
+#define pila_H_INCLUDED
 #include "node.h"
-#include "nodoMatriz.h"
-#include <stdio.h>
 
-#ifndef STACK_H
-#define STACK_H
-
-typedef struct stack {
-    node_t* top;
+typedef struct pila {
+    struct nodo *top;
     int size;
-} stack_t;
+} pila_t;
 
-void clear(stack_t *stack);
-void push(stack_t *stack, nodoMatriz_t* data);
-nodoMatriz_t* pop(stack_t * stack);
-int topValue(stack_t * stack);
-int length (stack_t * stack);
+void clear(pila_t *pila);
+void push(pila_t *pila, nodo_t* data);
+nodo_t* pop(pila_t * pila);
+nodo_t* topValue(pila_t * pila);
+int length (pila_t * pila);
 
-#endif
+
+#endif // pila_H_INCLUDED

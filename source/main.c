@@ -4,6 +4,7 @@
 #include "generadorMatriz.h"
 #include "creadorLaberinto.h"
 #include "eventos.h"
+#include "raton.h"
 
 
 GtkWidget *window;
@@ -79,5 +80,6 @@ int main(gint argc, gchar *argv[]) {
 }
 
 void notify(int i, int j) {
+    usleep(1000);
     pintarCamino(matriz, i, j, "../images/white_square.png");
 }

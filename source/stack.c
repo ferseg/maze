@@ -1,51 +1,49 @@
 #include "stack.h"
+#include <stdlib.h>
 
-void clear(stack_t *stack)
+void clear(pila_t *pila)
 {
-    while (stack->top != NULL)
+    while (pila->size != 0)
     {
-        node_t* temp = stack->top;
-        stack->top = stack->top->next;
+        nodo_t* temp = pila->top;
+        pila->top = pila->top->next;
+        pila->size--;
 
     }
-    stack->size = 0;
 }
 
-void push(stack_t *stack, nodoMatriz_t* data)
+void push(pila_t *pila, nodo_t* data)
 {
-    node_t* node = malloc(sizeof(node_t));
-    node->data = data;
-    node->next = stack->size == 0 ? NULL : stack->top;
-    stack->top = node;
-    stack->size++;
+    data->next = pila->top;
+    pila->top = data;
+    pila->size++;
 }
 
-nodoMatriz_t* pop(stack_t * stack)
+nodo_t* pop(pila_t * pila)
 {
-    nodoMatriz_t* data = malloc(sizeof(nodoMatriz_t));
-    if (stack->size != 0)
+    nodo_t* data = malloc(sizeof(nodo_t));
+    if (pila->size != 0)
     {
-        data = stack->top->data;
-        node_t *temp = stack->top->next;
-        free(stack->top);
-        stack->top = temp;
-        stack->size--;
+        data = pila->top;
+        nodo_t *temp = pila->top->next;
+        pila->top = temp;
+        pila->size--;
 
     }
     return data;
 }
 
-int topValue(stack_t * stack)
+nodo_t* topValue(pila_t * pila)
 {
-    if (stack->top != NULL)
+    if (pila->top != NULL)
     {
-        return stack->top->data;
+        return pila->top;
     }
 
     return NULL;
 }
 
-int length (stack_t * stack)
+int length (pila_t * pila)
 {
-    return stack->size;
+    return pila->size;
 }

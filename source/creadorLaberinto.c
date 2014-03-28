@@ -6,7 +6,7 @@ void crearLaberinto(int n, int m, int quesos, int venenos, nodoMatriz_t matriz[n
 	srand(time(NULL));
 	int i = rand() % n;
 	int j = rand() % m;
-    	crearLaberintoAux(i, j, n, m, matriz);
+    crearLaberintoAux(i, j, n, m, matriz);
 
 }
 
@@ -27,8 +27,6 @@ void crearLaberintoAux(int i, int j, int n, int m, nodoMatriz_t matriz[n][m])
         int js[4]= {0, 0, 0, 0};
         int vecinosCamino = 0;
 
-
-
         for (index = 0; index < 4; index++)
         {
             int tmp = list[(index+1) % 2];
@@ -47,7 +45,6 @@ void crearLaberintoAux(int i, int j, int n, int m, nodoMatriz_t matriz[n][m])
             js[index] = y;
             list[(index+1) % 2] = tmp;
         }
-
 
         if (vecinosCamino > CAMINO)
             return ;
@@ -78,7 +75,7 @@ void crearLaberintoAux(int i, int j, int n, int m, nodoMatriz_t matriz[n][m])
               }
             }
         }
-          //sleep(1);
+
         if ((is[0] != i || js[0] != j) && (matriz[is[0]][js[0]].valor > 10))
             crearLaberintoAux(is[0], js[0], n, m, matriz);
         if ((is[1] != i || js[1] != j) && (matriz[is[1]][js[1]].valor > 10))
@@ -93,3 +90,64 @@ void crearLaberintoAux(int i, int j, int n, int m, nodoMatriz_t matriz[n][m])
     return;
 
 }
+
+/*
+void crearLaberintoAux2(int i, int j, int n, int m, nodoMatriz_t matriz[n][m])
+{
+    node_t node;// = malloc(sizeof(node_t));
+    node.data = matriz[i][j];
+    node.data.valor = 1;
+    node.data.visitado = VISITADO;
+    notify(i, j);
+    stack_t pila = malloc(sizeof(stack_t));
+    pila.size = 0;
+    pila.top = malloc(sizeof(node_t));
+    push(pila, node);
+    while (pila.size != 0) {
+        int index;
+        int vecinosCamino = 0;
+        int list[2] = {1,1};
+        nodoMatriz_t menorAdyacente = malloc(sizeof(nodoMatriz_t));
+        int new_i = 0;
+        int new_j = 0;
+        int cant_visitados = 0;
+        for (index = 0; index < 4; index++)
+        {
+
+            int tmp = list[(index+1) % 2];
+            list[(index+1) % 2] = 0;
+            list[index % 2] *= -1;
+
+            int x = i + list[0] < 0? i : i + list[0] >= n? i : i + list[0];
+            int y = j + list[1] < 0? j : j + list[1] >= m? j : j + list[1];
+
+            if (matriz[x][y].valor == CAMINO)
+                vecinosCamino++;
+
+            cant_visitados = matriz[x][y].visitado == VISITADO? cant_visitados++ : cant_visitados;
+
+            if ((matriz[x][y].visitado == NO_VISITADO && menorAdyacente.valor > matriz[x][y].valor) || index == 0) {
+                menorAdyacente = matriz[x][y];
+                new_i = x;
+                new_j = y;
+            }
+
+
+            list[(index+1) % 2] = tmp;
+        }
+
+        if (vecinosCamino > CAMINO)
+            continue ;
+        if (cant_visitados == 4) {
+            pop(pila);
+        }
+        menorAdyacente.valor = CAMINO;
+        menorAdyacente.visitado = VISITADO;
+        notify(new_i, new_j);
+        i = new_i;
+        j = new_j;
+        push(pila, menorAdyacente);
+
+
+    }
+}*/
