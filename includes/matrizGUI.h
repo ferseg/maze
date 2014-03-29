@@ -6,6 +6,6 @@
 
 // Funcion generar matriz
 void generarMatrizPrincipal(GtkWidget*, int, int);
-void pintarCamino(GtkWidget*, int, int, char*);
+void pintar(GtkWidget*, int, int, char*);
 
 #endif /*MATRIZ_H*/

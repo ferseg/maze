@@ -50,7 +50,7 @@ void crearLaberintoAux(int i, int j, int n, int m, nodoMatriz_t matriz[n][m])
             return ;
 
         matriz[i][j].valor = CAMINO;
-        notify(i, j);
+        notify(i, j, 0);
 
         int c, d, swapI, swapJ;
         nodoMatriz_t swap;

@@ -50,9 +50,9 @@ int main(gint argc, gchar *argv[]) {
 		generarMatrizPrincipal(matriz, filas, columnas);
 		// Inicializa la matriz logica
 		a = malloc(sizeof(nodoMatriz_t)*filas*columnas);
-        generarMatriz(filas, columnas ,a);
+        generarMatriz(filas, columnas , a);
 
-        // Genera un struc de param para generar el laberinto
+        // Genera un struct de param para generar el laberinto
         param_generar_t *paramsGenerar;
 		paramsGenerar = malloc(sizeof(param_generar_t));
 		paramsGenerar->columnas = columnas;
@@ -63,10 +63,24 @@ int main(gint argc, gchar *argv[]) {
 		btnGenerar = gtk_button_new_with_label("Generar Laberinto");
         g_signal_connect(G_OBJECT(btnGenerar), "clicked", G_CALLBACK(generar_laberinto), (gpointer) paramsGenerar);
 
+        // Genera un struct de parametros para ubicar los quesos
+        param_empezar_t *paramsEmpezar;
+        paramsEmpezar = malloc(sizeof(param_empezar_t));
+        paramsEmpezar->columnas = columnas;
+        paramsEmpezar->filas = filas;
+        paramsEmpezar->venenos = venenos;
+        paramsEmpezar->quesos = quesos;
+        paramsEmpezar->matriz = a;
+
+        //printf(paramsEmpezar->matriz == NULL);
+
+        btnEmpezar = gtk_button_new_with_label("Empezar");
+        g_signal_connect(G_OBJECT(btnEmpezar), "clicked", G_CALLBACK(empezar_recorrido), (gpointer) paramsEmpezar);
+
         // Agrega los elementos al layout
         gtk_box_pack_start(GTK_BOX(layout), matriz, FALSE, FALSE, 0);
         gtk_box_pack_start(GTK_BOX(layout), btnGenerar, FALSE, FALSE, 0);
-
+        gtk_box_pack_start(GTK_BOX(layout), btnEmpezar, FALSE, FALSE, 0);
 
 	}
 
@@ -79,7 +93,8 @@ int main(gint argc, gchar *argv[]) {
 
 }
 
-void notify(int i, int j) {
-    usleep(1000);
-    pintarCamino(matriz, i, j, "../images/white_square.png");
+void notify(int i, int j, int tipo) {
+    //usleep(1000);
+    char* imagenes[4] = {"../images/grass.png", "../images/cheeser.png","../images/poisona.png", "../images/grass2.png"};
+    pintar(matriz, i, j, imagenes[tipo]);
 }
